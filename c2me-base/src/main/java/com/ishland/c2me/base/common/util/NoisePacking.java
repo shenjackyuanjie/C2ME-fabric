@@ -137,15 +137,15 @@ public class NoisePacking {
     }
 
     public static int gradX(int packed) {
-        return (byte) packed;               // low byte
+        return (byte) packed;
     }
 
     public static int gradY(int packed) {
-        return (byte) (packed >>> 8);       // second byte
+        return (byte) (packed >>> 8);
     }
 
     public static int gradZ(int packed) {
-        return (byte) (packed >>> 16);      // third byte
+        return (byte) (packed >>> 16);
     }
 
 }

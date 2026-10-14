@@ -66,70 +66,63 @@ public abstract class MixinPerlinNoiseSampler extends LatticedNoiseSampler imple
         this.c2me$initPackedPermutationsForJava();
     }
 
-//    /**
-//     * @author ishland
-//     * @reason optimize
-//     */
-//    @Overwrite
-//    protected float sample(
-//            final int px0, final int py0, final int pz0, final float fx0, final float fy0, final float fz0, final float fadeLocalY
-//    ) {
-//        final int[] permutations = this.c2me$initPackedPermutations();
-//
-//        if (permutations.length != 128) throw new AssertionError("permutations.length != 128");
-//
-//        final float fx1 = fx0 - 1.0f;
-//        final float fy1 = fy0 - 1.0f;
-//        final float fz1 = fz0 - 1.0f;
-//
-//        final int hashr__ = NoisePacking.indexPacked512bPermutation(permutations, px0);
-//        final int hash0__ = hashr__ & 0xff;
-//        final int hash1__ = (hashr__ >>> 8) & 0xff;
-//        final int hash0r_ = NoisePacking.indexPacked512bPermutation(permutations, hash0__ + py0);
-//        final int hash1r_ = NoisePacking.indexPacked512bPermutation(permutations, hash1__ + py0);
-//        final int hash00_ = hash0r_ & 0xff;
-//        final int hash01_ = (hash0r_ >>> 8) & 0xff;
-//        final int hash10_ = hash1r_ & 0xff;
-//        final int hash11_ = (hash1r_ >>> 8) & 0xff;
-//        final int hash00r = NoisePacking.indexPacked512bPermutation(permutations, hash00_ + pz0);
-//        final int hash10r = NoisePacking.indexPacked512bPermutation(permutations, hash10_ + pz0);
-//        final int hash01r = NoisePacking.indexPacked512bPermutation(permutations, hash01_ + pz0);
-//        final int hash11r = NoisePacking.indexPacked512bPermutation(permutations, hash11_ + pz0);
-//        final int hash000 = hash00r & 0xf;
-//        final int hash100 = hash10r & 0xf;
-//        final int hash010 = hash01r & 0xf;
-//        final int hash110 = hash11r & 0xf;
-//        final int hash001 = (hash00r >>> 8) & 0xf;
-//        final int hash101 = (hash10r >>> 8) & 0xf;
-//        final int hash011 = (hash01r >>> 8) & 0xf;
-//        final int hash111 = (hash11r >>> 8) & 0xf;
-//
-//        final int res000 = NoisePacking.FLAT_SIMPLEX_GRAD_I8[hash000];
-//        final int res100 = NoisePacking.FLAT_SIMPLEX_GRAD_I8[hash100];
-//        final int res010 = NoisePacking.FLAT_SIMPLEX_GRAD_I8[hash010];
-//        final int res110 = NoisePacking.FLAT_SIMPLEX_GRAD_I8[hash110];
-//        final int res001 = NoisePacking.FLAT_SIMPLEX_GRAD_I8[hash001];
-//        final int res101 = NoisePacking.FLAT_SIMPLEX_GRAD_I8[hash101];
-//        final int res011 = NoisePacking.FLAT_SIMPLEX_GRAD_I8[hash011];
-//        final int res111 = NoisePacking.FLAT_SIMPLEX_GRAD_I8[hash111];
-//
-//        final float f000 = NoisePacking.gradX(res000) * fx0 + NoisePacking.gradY(res000) * fy0 + NoisePacking.gradZ(res000) * fz0;
-//        final float f100 = NoisePacking.gradX(res100) * fx1 + NoisePacking.gradY(res100) * fy0 + NoisePacking.gradZ(res100) * fz0;
-//        final float f010 = NoisePacking.gradX(res010) * fx0 + NoisePacking.gradY(res010) * fy1 + NoisePacking.gradZ(res010) * fz0;
-//        final float f110 = NoisePacking.gradX(res110) * fx1 + NoisePacking.gradY(res110) * fy1 + NoisePacking.gradZ(res110) * fz0;
-//        final float f001 = NoisePacking.gradX(res001) * fx0 + NoisePacking.gradY(res001) * fy0 + NoisePacking.gradZ(res001) * fz1;
-//        final float f101 = NoisePacking.gradX(res101) * fx1 + NoisePacking.gradY(res101) * fy0 + NoisePacking.gradZ(res101) * fz1;
-//        final float f011 = NoisePacking.gradX(res011) * fx0 + NoisePacking.gradY(res011) * fy1 + NoisePacking.gradZ(res011) * fz1;
-//        final float f111 = NoisePacking.gradX(res111) * fx1 + NoisePacking.gradY(res111) * fy1 + NoisePacking.gradZ(res111) * fz1;
-//
-//        final float dx = MathHelper.perlinFade(fx0);
-//        final float dy = MathHelper.perlinFade(fadeLocalY);
-//        final float dz = MathHelper.perlinFade(fz0);
-//
-//        return MathHelper.lerp3(dx, dy, dz,
-//                f000, f100, f010, f110,
-//                f001, f101, f011, f111);
-//    }
+    /**
+     * @author ishland
+     * @reason optimize
+     */
+    @Overwrite
+    protected float sample(
+            final int px0, final int py0, final int pz0, final float fx0, final float fy0, final float fz0, final float fadeLocalY
+    ) {
+        final int[] permutations = this.c2me$initPackedPermutationsForJava();
+
+        if (permutations.length != 128) throw new AssertionError("permutations.length != 128");
+
+        final float fx1 = fx0 - 1.0f;
+        final float fy1 = fy0 - 1.0f;
+        final float fz1 = fz0 - 1.0f;
+
+        final int hashr__ = NoisePacking.indexPacked512bPermutation(permutations, px0);
+        final int hash0__ = hashr__ & 0xff;
+        final int hash1__ = (hashr__ >>> 8) & 0xff;
+        final int hash0r_ = NoisePacking.indexPacked512bPermutation(permutations, hash0__ + py0);
+        final int hash1r_ = NoisePacking.indexPacked512bPermutation(permutations, hash1__ + py0);
+        final int hash00_ = hash0r_ & 0xff;
+        final int hash01_ = (hash0r_ >>> 8) & 0xff;
+        final int hash10_ = hash1r_ & 0xff;
+        final int hash11_ = (hash1r_ >>> 8) & 0xff;
+        final int hash00r = NoisePacking.indexPacked512bPermutation(permutations, hash00_ + pz0);
+        final int hash10r = NoisePacking.indexPacked512bPermutation(permutations, hash10_ + pz0);
+        final int hash01r = NoisePacking.indexPacked512bPermutation(permutations, hash01_ + pz0);
+        final int hash11r = NoisePacking.indexPacked512bPermutation(permutations, hash11_ + pz0);
+        final int hash000 = hash00r & 0xf;
+        final int hash100 = hash10r & 0xf;
+        final int hash010 = hash01r & 0xf;
+        final int hash110 = hash11r & 0xf;
+        final int hash001 = (hash00r >>> 8) & 0xf;
+        final int hash101 = (hash10r >>> 8) & 0xf;
+        final int hash011 = (hash01r >>> 8) & 0xf;
+        final int hash111 = (hash11r >>> 8) & 0xf;
+
+        final float f000 = NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash000 << 2) | 0] * fx0 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash000 << 2) | 1] * fy0 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash000 << 2) | 2] * fz0;
+        final float f100 = NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash100 << 2) | 0] * fx1 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash100 << 2) | 1] * fy0 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash100 << 2) | 2] * fz0;
+        final float f010 = NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash010 << 2) | 0] * fx0 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash010 << 2) | 1] * fy1 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash010 << 2) | 2] * fz0;
+        final float f110 = NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash110 << 2) | 0] * fx1 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash110 << 2) | 1] * fy1 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash110 << 2) | 2] * fz0;
+        final float f001 = NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash001 << 2) | 0] * fx0 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash001 << 2) | 1] * fy0 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash001 << 2) | 2] * fz1;
+        final float f101 = NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash101 << 2) | 0] * fx1 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash101 << 2) | 1] * fy0 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash101 << 2) | 2] * fz1;
+        final float f011 = NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash011 << 2) | 0] * fx0 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash011 << 2) | 1] * fy1 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash011 << 2) | 2] * fz1;
+        final float f111 = NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash111 << 2) | 0] * fx1 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash111 << 2) | 1] * fy1 + NoisePacking.FLAT_SIMPLEX_GRAD_F32[(hash111 << 2) | 2] * fz1;
+
+        final float dx = MathHelper.perlinFade(fx0);
+        final float dy = MathHelper.perlinFade(fadeLocalY);
+        final float dz = MathHelper.perlinFade(fz0);
+
+        float res = MathHelper.lerp3(dx, dy, dz,
+                f000, f100, f010, f110,
+                f001, f101, f011, f111);
+
+        return res;
+    }
 
     /**
      * @author ishland
