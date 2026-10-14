@@ -88,9 +88,6 @@ public abstract class MixinPerlinNoiseSampler extends LatticedNoiseSampler imple
                 region.stepBlockX(),
                 region.stepBlockY(),
                 region.stepBlockZ(),
-                MemorySegment.NULL,
-                MemorySegment.NULL,
-                MemorySegment.NULL,
                 scaleXz,
                 scaleY,
                 outputScale

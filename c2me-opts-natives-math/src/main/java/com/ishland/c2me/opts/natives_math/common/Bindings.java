@@ -41,13 +41,10 @@ public class Bindings {
                                                                     final int sizeX, final int sizeY, final int sizeZ,
                                                                     final int minBlockX, final int minBlockY, final int minBlockZ,
                                                                     final int stepBlockX, final int stepBlockY, final int stepBlockZ,
-                                                                    final MemorySegment shiftX, final MemorySegment shiftY,
-                                                                    final MemorySegment shiftZ,
                                                                     final double scaleXz, final double scaleY, final float outputScale) {
         try {
             MH_c2me_natives_noise_perlin_sample_legacy_area.invokeExact(fusedPermutationTable, originX, originY, originZ, yScale, output, sizeX,
-                    sizeY, sizeZ, minBlockX, minBlockY, minBlockZ, stepBlockX, stepBlockY, stepBlockZ, shiftX, shiftY,
-                    shiftZ, scaleXz, scaleY, outputScale);
+                    sizeY, sizeZ, minBlockX, minBlockY, minBlockZ, stepBlockX, stepBlockY, stepBlockZ, scaleXz, scaleY, outputScale);
         } catch (Throwable t) {
             throw new RuntimeException(t);
         }
@@ -61,13 +58,10 @@ public class Bindings {
                                                                   final int sizeX, final int sizeY, final int sizeZ,
                                                                   final int minBlockX, final int minBlockY, final int minBlockZ,
                                                                   final int stepBlockX, final int stepBlockY, final int stepBlockZ,
-                                                                  final MemorySegment shiftX, final MemorySegment shiftY,
-                                                                  final MemorySegment shiftZ,
                                                                   final double scaleXz, final double scaleY, final float outputScale) {
         try {
             MH_c2me_natives_noise_perlin_sample_base_area.invokeExact(fusedPermutationTable, originX, originY, originZ, output, sizeX,
-                    sizeY, sizeZ, minBlockX, minBlockY, minBlockZ, stepBlockX, stepBlockY, stepBlockZ, shiftX, shiftY,
-                    shiftZ, scaleXz, scaleY, outputScale);
+                    sizeY, sizeZ, minBlockX, minBlockY, minBlockZ, stepBlockX, stepBlockY, stepBlockZ, scaleXz, scaleY, outputScale);
         } catch (Throwable t) {
             throw new RuntimeException(t);
         }

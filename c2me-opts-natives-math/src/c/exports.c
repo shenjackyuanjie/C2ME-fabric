@@ -8,12 +8,10 @@ TARGET_IMPL(c2me_natives_noise_perlin_sample_legacy_area, void, (const uint32_t 
                 const int32_t sizeX, const int32_t sizeY, const int32_t sizeZ,
                 const int32_t minBlockX, const int32_t minBlockY, const int32_t minBlockZ,
                 const int32_t stepBlockX, const int32_t stepBlockY, const int32_t stepBlockZ,
-                const double *restrict const shiftX, const double *restrict const shiftY,
-                const double *restrict const shiftZ,
                 const double scaleXz, const double scaleY, const float outputScale) {
     math_noise_perlin_sample_legacy_area(table, originX, originY, originZ, yScale, output, sizeX,
-                sizeY, sizeZ, minBlockX, minBlockY, minBlockZ, stepBlockX, stepBlockY, stepBlockZ, shiftX, shiftY,
-                shiftZ, scaleXz, scaleY, outputScale);
+                            sizeY, sizeZ, minBlockX, minBlockY, minBlockZ, stepBlockX, stepBlockY, stepBlockZ, scaleXz, scaleY,
+                            outputScale);
 })
 
 TARGET_IMPL(c2me_natives_noise_perlin_sample_base_area, void, (const uint32_t *restrict const table,
@@ -22,12 +20,10 @@ TARGET_IMPL(c2me_natives_noise_perlin_sample_base_area, void, (const uint32_t *r
                 const int32_t sizeX, const int32_t sizeY, const int32_t sizeZ,
                 const int32_t minBlockX, const int32_t minBlockY, const int32_t minBlockZ,
                 const int32_t stepBlockX, const int32_t stepBlockY, const int32_t stepBlockZ,
-                const double *restrict const shiftX, const double *restrict const shiftY,
-                const double *restrict const shiftZ,
                 const double scaleXz, const double scaleY, const float outputScale) {
     math_noise_perlin_sample_base_area(table, originX, originY, originZ, output, sizeX,
-                sizeY, sizeZ, minBlockX, minBlockY, minBlockZ, stepBlockX, stepBlockY, stepBlockZ, shiftX, shiftY,
-                shiftZ, scaleXz, scaleY, outputScale);
+                            sizeY, sizeZ, minBlockX, minBlockY, minBlockZ, stepBlockX, stepBlockY, stepBlockZ, scaleXz, scaleY,
+                            outputScale);
 })
 
 TARGET_IMPL(c2me_natives_end_islands_sample, float, (const aligned_uint32_ptr simplex_permutations, const int32_t x, const int32_t z) {

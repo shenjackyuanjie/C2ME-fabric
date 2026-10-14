@@ -61,8 +61,6 @@ public class BindingsTemplate {
     //                                     const int32_t sizeX, const int32_t sizeY, const int32_t sizeZ,
     //                                     const int32_t minBlockX, const int32_t minBlockY, const int32_t minBlockZ,
     //                                     const int32_t stepBlockX, const int32_t stepBlockY, const int32_t stepBlockZ,
-    //                                     const double *restrict const shiftX, const double *restrict const shiftY,
-    //                                     const double *restrict const shiftZ,
     //                                     const double scaleXz, const double scaleY, const float outputScale)
 
     public static final MethodHandle c2me_natives_noise_perlin_sample_legacy_area = NativeLoader.linker.downcallHandle(
@@ -82,9 +80,6 @@ public class BindingsTemplate {
                     ValueLayout.JAVA_INT,    // const int32_t stepBlockX
                     ValueLayout.JAVA_INT,    // const int32_t stepBlockY
                     ValueLayout.JAVA_INT,    // const int32_t stepBlockZ
-                    ValueLayout.ADDRESS,     // const double *restrict const shiftX
-                    ValueLayout.ADDRESS,     // const double *restrict const shiftY
-                    ValueLayout.ADDRESS,     // const double *restrict const shiftZ
                     ValueLayout.JAVA_DOUBLE, // const double scaleXz
                     ValueLayout.JAVA_DOUBLE, // const double scaleY
                     ValueLayout.JAVA_FLOAT   // const float outputScale
@@ -99,8 +94,6 @@ public class BindingsTemplate {
     //                                   const int32_t sizeX, const int32_t sizeY, const int32_t sizeZ,
     //                                   const int32_t minBlockX, const int32_t minBlockY, const int32_t minBlockZ,
     //                                   const int32_t stepBlockX, const int32_t stepBlockY, const int32_t stepBlockZ,
-    //                                   const double *restrict const shiftX, const double *restrict const shiftY,
-    //                                   const double *restrict const shiftZ,
     //                                   const double scaleXz, const double scaleY, const float outputScale)
 
     public static final MethodHandle c2me_natives_noise_perlin_sample_base_area = NativeLoader.linker.downcallHandle(
@@ -119,9 +112,6 @@ public class BindingsTemplate {
                     ValueLayout.JAVA_INT,    // const int32_t stepBlockX
                     ValueLayout.JAVA_INT,    // const int32_t stepBlockY
                     ValueLayout.JAVA_INT,    // const int32_t stepBlockZ
-                    ValueLayout.ADDRESS,     // const double *restrict const shiftX
-                    ValueLayout.ADDRESS,     // const double *restrict const shiftY
-                    ValueLayout.ADDRESS,     // const double *restrict const shiftZ
                     ValueLayout.JAVA_DOUBLE, // const double scaleXz
                     ValueLayout.JAVA_DOUBLE, // const double scaleY
                     ValueLayout.JAVA_FLOAT   // const float outputScale

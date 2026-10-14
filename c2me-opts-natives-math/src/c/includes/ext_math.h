@@ -1259,52 +1259,24 @@ noise_perlin_area_shifted_xz(const uint32_t *restrict table, double originX,
 }
 
 static inline __attribute__((always_inline)) void
-noise_perlin_area(const uint32_t *restrict table, double originX,
-                  double originY, double originZ, double yScale, bool legacy,
-                  float *restrict output, sampling_region_t region,
-                  const double *restrict shiftX, const double *restrict shiftY,
-                  const double *restrict shiftZ, double scaleXz, double scaleY,
-                  float outputScale) {
-    if (shiftX && shiftY && shiftZ)
-        noise_perlin_area_shifted_xyz(table, originX, originY, originZ, yScale,
-                                  legacy, output, region, shiftX, shiftY, shiftZ,
-                                  scaleXz, scaleY, outputScale);
-    else if (shiftX && !shiftY && shiftZ)
-        noise_perlin_area_shifted_xz(table, originX, originY, originZ, yScale,
-                                  legacy, output, region, shiftX, shiftZ,
-                                  scaleXz, scaleY, outputScale);
-    else if (!shiftX && !shiftY && !shiftZ)
-        noise_perlin_area_unshifted(table, originX, originY, originZ, yScale,
-                                    legacy, output, region, scaleXz, scaleY,
-                                    outputScale);
-    else {
-        __builtin_trap();
-        __builtin_unreachable();
-    }
-}
-
-static inline __attribute__((always_inline)) void
 math_noise_perlin_sample_legacy_area0(
     const uint32_t *restrict table, double originX, double originY,
     double originZ, double yScale, float *restrict output,
-    sampling_region_t region, const double *restrict shiftX,
-    const double *restrict shiftY, const double *restrict shiftZ,
+    sampling_region_t region,
     double scaleXz, double scaleY, float outputScale) {
-    noise_perlin_area(table, originX, originY, originZ, yScale, true,
-                      output, region, shiftX, shiftY, shiftZ, scaleXz, scaleY,
-                      outputScale);
+    noise_perlin_area_unshifted(table, originX, originY, originZ, yScale, true,
+                                output, region, scaleXz, scaleY,
+                                outputScale);
 }
 
 static inline __attribute__((always_inline)) void
 math_noise_perlin_sample_base_area0(
     const uint32_t *restrict table, double originX, double originY,
     double originZ, float *restrict output, sampling_region_t region,
-    const double *restrict shiftX, const double *restrict shiftY,
-    const double *restrict shiftZ, double scaleXz, double scaleY,
-    float outputScale) {
-    noise_perlin_area(table, originX, originY, originZ, 1.0, false, output,
-                      region, shiftX, shiftY, shiftZ, scaleXz, scaleY,
-                      outputScale);
+    double scaleXz, double scaleY, float outputScale) {
+    noise_perlin_area_unshifted(table, originX, originY, originZ, 1.0, false, output,
+                                region, scaleXz, scaleY,
+                                outputScale);
 }
 
 static inline __attribute__((always_inline)) void
@@ -1313,8 +1285,7 @@ math_noise_perlin_sample_legacy_area(
     double originZ, double yScale, float *restrict output, int32_t sizeX,
     int32_t sizeY, int32_t sizeZ, int32_t minBlockX, int32_t minBlockY,
     int32_t minBlockZ, int32_t stepBlockX, int32_t stepBlockY,
-    int32_t stepBlockZ, const double *restrict shiftX,
-    const double *restrict shiftY, const double *restrict shiftZ,
+    int32_t stepBlockZ,
     double scaleXz, double scaleY, float outputScale) {
     __builtin_assume(sizeX != 0);
     __builtin_assume(sizeY != 0);
@@ -1325,8 +1296,8 @@ math_noise_perlin_sample_legacy_area(
         stepBlockX, stepBlockY, stepBlockZ
     };
     math_noise_perlin_sample_legacy_area0(table, originX, originY, originZ,
-                                          yScale, output, region, shiftX, shiftY,
-                                          shiftZ, scaleXz, scaleY, outputScale);
+                                          yScale, output, region, scaleXz, scaleY,
+                                          outputScale);
 }
 
 static __attribute__((always_inline)) void math_noise_perlin_sample_base_area(
@@ -1334,9 +1305,7 @@ static __attribute__((always_inline)) void math_noise_perlin_sample_base_area(
     double originZ, float *restrict output, int32_t sizeX, int32_t sizeY,
     int32_t sizeZ, int32_t minBlockX, int32_t minBlockY, int32_t minBlockZ,
     int32_t stepBlockX, int32_t stepBlockY, int32_t stepBlockZ,
-    const double *restrict shiftX, const double *restrict shiftY,
-    const double *restrict shiftZ, double scaleXz, double scaleY,
-    float outputScale) {
+    double scaleXz, double scaleY, float outputScale) {
     __builtin_assume(sizeX != 0);
     __builtin_assume(sizeY != 0);
     __builtin_assume(sizeZ != 0);
@@ -1346,8 +1315,7 @@ static __attribute__((always_inline)) void math_noise_perlin_sample_base_area(
         stepBlockX, stepBlockY, stepBlockZ
     };
     math_noise_perlin_sample_base_area0(table, originX, originY, originZ,
-                                        output, region, shiftX, shiftY, shiftZ,
-                                        scaleXz, scaleY, outputScale);
+                                        output, region, scaleXz, scaleY, outputScale);
 }
 
 static __attribute__((aligned(32))) const int8_t noise_end_island_m[625] = {

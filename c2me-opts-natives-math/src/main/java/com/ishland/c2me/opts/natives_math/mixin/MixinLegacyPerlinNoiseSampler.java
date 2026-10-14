@@ -92,9 +92,6 @@ public abstract class MixinLegacyPerlinNoiseSampler extends PerlinNoiseSampler i
                 region.stepBlockX(),
                 region.stepBlockY(),
                 region.stepBlockZ(),
-                MemorySegment.NULL,
-                MemorySegment.NULL,
-                MemorySegment.NULL,
                 scaleXz,
                 scaleY,
                 outputScale
